@@ -1,0 +1,829 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sairaj Abhale - Portfolio</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-papQ2U+oZ1YvPy3GQTyk4Cu+0vGn53DYZf4TXKMk20Im5mfYjHjAjVXrhD4vwI3mcNPEKaOB5ZmP76P6V8S+5g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      :root {
+        --primary-color: #007bff;
+        --background-color: #f4f6f8;
+        --text-color: #333;
+        --card-bg: white;
+      }
+
+      body.dark-mode {
+        --primary-color: #66b2ff;
+        --background-color: #121212;
+        --text-color: #e0e0e0;
+        --card-bg: #1e1e1e;
+      }
+
+      /* Reset */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 16px;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        transition: background 0.3s, color 0.3s;
+        scroll-padding-top: 70px; /* for fixed nav */
+      }
+
+      a {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      a:hover,
+      a:focus {
+        text-decoration: underline;
+        outline: none;
+      }
+
+      .container {
+        max-width: 960px;
+        margin: auto;
+        padding: 20px;
+      }
+
+      h1, h2, h3 {
+        margin-bottom: 15px;
+        color: var(--text-color);
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-top: 40px;
+      }
+
+      .section-heading {
+        border-bottom: 3px solid var(--primary-color);
+        padding-bottom: 8px;
+        margin-bottom: 25px;
+        font-weight: 700;
+        font-size: 1.8rem;
+      }
+
+      nav {
+        background: var(--card-bg);
+        padding: 15px 20px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 4px;
+      }
+
+      nav a.active,
+      nav a:hover,
+      nav a:focus {
+        background-color: var(--primary-color);
+        color: white;
+        outline: none;
+      }
+
+      .toggle-dark {
+        cursor: pointer;
+        font-weight: bold;
+        color: var(--primary-color);
+        user-select: none;
+        font-size: 1.4rem;
+        transition: color 0.3s;
+        padding: 5px 10px;
+        border-radius: 4px;
+        border: 2px solid var(--primary-color);
+      }
+
+      .toggle-dark:hover,
+      .toggle-dark:focus {
+        background-color: var(--primary-color);
+        color: white;
+        outline: none;
+      }
+
+      /* Mobile menu toggle button */
+      .menu-toggle {
+        display: none;
+        cursor: pointer;
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        user-select: none;
+        border: none;
+        background: none;
+      }
+
+      /* Container for nav links (for responsive toggle) */
+      .nav-links {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-grow: 1;
+        align-items: center;
+      }
+
+      /* Responsive nav */
+      @media (max-width: 768px) {
+        nav {
+          flex-wrap: nowrap;
+          justify-content: space-between;
+        }
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          background: var(--card-bg);
+          position: absolute;
+          top: 60px;
+          left: 0;
+          padding: 15px 0;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          border-radius: 0 0 8px 8px;
+          z-index: 999;
+        }
+        .nav-links.show {
+          display: flex;
+        }
+        .menu-toggle {
+          display: block;
+        }
+      }
+
+      section {
+        margin-bottom: 50px;
+        background: var(--card-bg);
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+        scroll-margin-top: 100px; /* Prevent content hidden under nav */
+      }
+
+      section.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      #about {
+        text-align: center;
+      }
+
+      #about img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+        border: 3px solid var(--primary-color);
+        object-fit: cover;
+      }
+
+      #about p {
+        font-size: 1.15rem;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: auto;
+      }
+
+      .resume-button {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 5px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        user-select: none;
+      }
+
+      .resume-button:hover,
+      .resume-button:focus {
+        background-color: #0056b3;
+        outline: none;
+      }
+
+      .skills-list {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 0;
+        justify-content: center;
+      }
+
+      .skills-list li {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 1rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        user-select: none;
+      }
+
+      .project-card {
+        margin-bottom: 20px;
+        padding: 15px 20px;
+        border-left: 5px solid var(--primary-color);
+        background-color: var(--background-color);
+        border-radius: 5px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        transition: box-shadow 0.3s;
+      }
+
+      .project-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .project-card h3 {
+        margin-bottom: 8px;
+        color: var(--primary-color);
+      }
+
+      #education ul {
+        list-style: disc inside;
+        font-size: 1.1rem;
+        line-height: 1.5;
+        max-width: 500px;
+        margin: auto;
+      }
+
+      #portfolio p,
+      #contact p {
+        max-width: 650px;
+        margin: auto;
+        font-size: 1.1rem;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+
+      .contact-links {
+        text-align: center;
+        margin-top: 15px;
+      }
+
+      .contact-links a {
+        font-size: 1.6rem;
+        margin: 0 12px;
+        color: var(--primary-color);
+        transition: color 0.3s;
+      }
+
+      .contact-links a:hover,
+      .contact-links a:focus {
+        color: #004a99;
+        outline: none;
+      }
+
+      /* Typed text */
+      .typed-text {
+        font-weight: 700;
+        color: var(--primary-color);
+        min-height: 1.4em; /* avoid jump */
+        font-size: 1.2rem;
+        margin-top: 10px;
+        user-select: none;
+      }
+
+      /* Back to top button */
+      #backToTop {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        display: none;
+        z-index: 1100;
+        transition: background-color 0.3s;
+      }
+
+      #backToTop:hover,
+      #backToTop:focus {
+        background-color: #0056b3;
+        outline: none;
+      }
+
+      /* Focus outline for accessibility */
+      a:focus,
+      button:focus {
+        outline: 3px solid var(--primary-color);
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav aria-label="Primary navigation">
+      <button
+        class="menu-toggle"
+        aria-controls="primary-navigation"
+        aria-expanded="false"
+        aria-label="Toggle menu"
+      >
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+
+      <div class="nav-links" id="primary-navigation">
+        <a href="#home" class="nav-link" tabindex="0">Home</a>
+        <a href="#aboutme" class="nav-link" tabindex="0">About Me</a>
+        <a href="#skills" class="nav-link" tabindex="0">Skills</a>
+        <a href="#projects" class="nav-link" tabindex="0">Projects</a>
+        <a href="#education" class="nav-link" tabindex="0">Education</a>
+        <a href="#contact" class="nav-link" tabindex="0">Contact</a>
+      </div>
+
+      <button
+        class="toggle-dark"
+        aria-pressed="false"
+        aria-label="Toggle dark mode"
+        title="Toggle dark mode"
+      >
+        🌙
+      </button>
+    </nav>
+
+    <main>
+  <section id="home" tabindex="-1" aria-labelledby="home-title" class="section" role="region">
+  <div class="home-content">
+    <h1 id="home-title">Sairaj Abhale</h1>
+  <img
+  src="image/profile.jpg"
+  alt="Portrait photo of Sairaj Abhale"
+  class="home-image"
+  loading="lazy"
+/>
+
+    <p>
+      Hello! I am <strong>Sairaj Abhale</strong>, a passionate programmer and AI enthusiast
+      from Sanjivani University. I enjoy creating innovative projects and
+      learning new technologies.
+    </p>
+    <div class="typed-text" aria-live="polite" aria-atomic="true" aria-relevant="additions"></div>
+    <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-button" aria-label="Open Resume PDF in new tab">
+      Resume
+    </a>
+  </div>
+</section>
+
+</main>
+
+  
+<section id="aboutme" class="active">
+  <h2 class="section-heading">About Me</h2>
+  <div class="about-container">
+    <img src="image/profile2.jpg" alt="Sairaj Abhale Profile Photo" class="profile-photo" />
+    <div class="about-text">
+      <p>
+        Hello! I'm <strong>Sairaj Abhale</strong>, a passionate and dedicated student currently pursuing a Bachelor's degree in Artificial Intelligence and Machine Learning at Sanjivani University. I hold a Diploma in Mechatronics with a distinction of 91.48% in Mechatronics at Sanjivani K.B.P. Polytechnic. I have Completed My Schooling from SANT JANARDHAN SWAMI (MOUNGIRI) MAHARAJ MAHARISHI SCHOOL.
+      </p>
+      <p>
+        I enjoy creating intelligent solutions to real-world problems, especially in the domains of smart agriculture and healthcare. My recent projects involve ESP32-CAM, Blynk, YOLOv8, and Firebase integrations. I also have hands-on experience with DevOps fundamentals, cloud platforms, and Power BI for data visualization.
+      </p>
+      <p>
+        I believe in continuous learning and innovation. My goal is to contribute to impactful, tech-driven solutions that improve people's lives.
+      </p>
+    </div>
+  </div>
+</section>
+
+</section>
+
+
+<section
+  id="skills"
+  tabindex="-1"
+  aria-labelledby="skills-title"
+  class="section"
+  role="region"
+>
+<h2 id="skills-title" class="section-heading">Skills</h2>
+
+  <ul class="skills-list">
+    <li>
+      <div class="skill-top">
+        <span class="skill-name">HTML5</span>
+        <span class="skill-percent">60%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" style="width: 60%;"></div>
+      </div>
+    </li>
+    <li>
+      <div class="skill-top">
+        <span class="skill-name">CSS3</span>
+        <span class="skill-percent">60%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" style="width: 60%;"></div>
+      </div>
+    </li>
+    <li>
+      <div class="skill-top">
+        <span class="skill-name">JavaScript (ES6+)</span>
+        <span class="skill-percent">55%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" style="width: 55%;"></div>
+      </div>
+    </li>
+    <li>
+      <div class="skill-top">
+        <span class="skill-name">Python</span>
+        <span class="skill-percent">70%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" style="width: 70%;"></div>
+      </div>
+    </li>
+    <li>
+      <div class="skill-top">
+        <span class="skill-name">Java</span>
+        <span class="skill-percent">65%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" style="width: 65%;"></div>
+      </div>
+    </li>
+    <li>
+      <div class="skill-top">
+        <span class="skill-name">Node.js</span>
+        <span class="skill-percent">60%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" style="width: 60%;"></div>
+      </div>
+    </li>
+    <li>
+      <div class="skill-top">
+        <span class="skill-name">Git & GitHub</span>
+        <span class="skill-percent">80%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" style="width: 80%;"></div>
+      </div>
+    </li>
+    <li>
+      <div class="skill-top">
+        <span class="skill-name">Machine Learning</span>
+        <span class="skill-percent">65%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" style="width: 65%;"></div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+      <!-- <section
+        id="projects"
+        tabindex="-1"
+        aria-labelledby="projects-title"
+        class="section"
+        role="region"
+      >
+        <h2 id="projects-title" class="section-heading">Projects</h2>
+
+        <article class="project-card" tabindex="0">
+          <h3>ML-Powered Plant Disease Detection</h3>
+          <p>
+            Developed a smart plant monitoring system using ESP32-CAM,
+            YOLOv8, and Flask server for AI-based disease detection integrated
+            with Blynk app for real-time monitoring and farmer engagement.
+          </p>
+        </article>
+
+    
+
+      </section> -->
+<section
+  id="projects"
+  tabindex="-1"
+  aria-labelledby="projects-title"
+  class="section"
+  role="region"
+>
+  <h2 id="projects-title" class="section-heading">Projects</h2>
+
+  <article class="project-card" tabindex="0">
+    <div class="project-content">
+      <img
+        src="image/Circuit.png"
+        alt="Plant Disease Detection System"
+        class="project-image"
+      />
+      <div class="project-info">
+        <h3>ML-Powered Plant Disease Detection</h3>
+        <p>
+          A smart IoT-based system for farmers that detects plant diseases using YOLOv8 and ESP32-CAM. 
+          The system captures live plant images and sends them to a Flask server for real-time 
+          disease prediction. It also tracks temperature and humidity using DHT11 and logs data to Firebase.
+        </p>
+        <ul>
+          <li>🌿 Uses ESP32-CAM to capture plant images</li>
+          <li>🧠 YOLOv8 model deployed via Flask API</li>
+          <li>📱 Integrated with Blynk app for monitoring</li>
+          <li>📊 Stores data in Firebase and sends alerts</li>
+        </ul>
+        <a href="https://github.com/yourusername/project-repo" target="_blank" class="project-link">View Code on GitHub</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+   <section id="education" class="section">
+  <h2 class="section-heading">Education</h2>
+  <div class="education-container">
+
+    <!-- B.Tech Card -->
+    <div class="education-card">
+      <img src="image/1.jpeg" alt="B.Tech in AIML" class="edu-img" />
+      <div class="edu-details">
+        <h3>B.Tech in Artificial Intelligence and Machine Learning</h3>
+        <p>Sanjivani University, Kopargaon</p>
+        <p><em>Currently Pursuing</em></p>
+      </div>
+    </div>
+
+    <!-- Diploma Card -->
+    <div class="education-card">
+      <img src="image/2.jpg" alt="Diploma in Mechatronics" class="edu-img" />
+      <div class="edu-details">
+        <h3>Diploma in Mechatronics</h3>
+        <p>Sanjivani K.B.P Polytechnic, Kopargaon</p>
+        <p>Score: <strong>91.48%</strong></p>
+      </div>
+    </div>
+
+    <!-- School Card -->
+    <div class="education-card">
+      <img src="image/3.png" alt="Schooling CBSE" class="edu-img" />
+      <div class="edu-details">
+        <h3>Sant Janardhan Swami Maharaj Maharishi School</h3>
+        <p>CBSE | Kokamthan, Ahilyanagar, Maharashtra</p>
+        <p>Year of Completion: 2021</p>
+        <p>Completed 10th grade with strong academic performance and active participation in science exhibitions and extracurricular activities.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact" class="section contact-section" tabindex="-1" aria-labelledby="contact-title" role="region">
+  <h2 id="contact-title" class="section-heading">Contact</h2>
+  <p class="contact-text">
+    Feel free to reach out via email or connect with me on social media. I’m open to collaboration, projects, and job opportunities.
+  </p>
+  <div class="contact-links" role="list">
+    <a href="mailto:sairajabhale@gmail.com" aria-label="Send email">
+      <i class="fas fa-envelope"></i>
+    </a>
+    <a href="https://github.com/Sai0045" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/sairaj-abhale-75493b2a7/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+      <i class="fab fa-linkedin"></i>
+    </a>
+  </div>
+</section>
+
+    <button id="backToTop" aria-label="Back to top" title="Back to top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+      // Dark mode toggle
+      const darkToggleBtn = document.querySelector('.toggle-dark');
+      const body = document.body;
+
+      function setDarkMode(isDark) {
+        if (isDark) {
+          body.classList.add('dark-mode');
+          darkToggleBtn.setAttribute('aria-pressed', 'true');
+          darkToggleBtn.textContent = '☀️';
+        } else {
+          body.classList.remove('dark-mode');
+          darkToggleBtn.setAttribute('aria-pressed', 'false');
+          darkToggleBtn.textContent = '🌙';
+        }
+        localStorage.setItem('darkMode', isDark);
+      }
+
+      darkToggleBtn.addEventListener('click', () => {
+        const isDark = body.classList.contains('dark-mode');
+        setDarkMode(!isDark);
+      });
+
+      // Load dark mode preference
+      const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+      setDarkMode(savedDarkMode);
+
+      // Mobile menu toggle
+      const menuToggleBtn = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+
+      menuToggleBtn.addEventListener('click', () => {
+        const expanded = menuToggleBtn.getAttribute('aria-expanded') === 'true';
+        menuToggleBtn.setAttribute('aria-expanded', String(!expanded));
+        navLinks.classList.toggle('show');
+      });
+
+      // Close mobile menu on nav link click (for better UX)
+      document.querySelectorAll('.nav-link').forEach((link) => {
+        link.addEventListener('click', () => {
+          if (navLinks.classList.contains('show')) {
+            navLinks.classList.remove('show');
+            menuToggleBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // Highlight nav links on scroll
+      const sections = document.querySelectorAll('section');
+      const navItems = document.querySelectorAll('.nav-link');
+
+      function onScroll() {
+        const scrollPos = window.scrollY + 80; // offset for nav height + padding
+
+        sections.forEach((section) => {
+          if (
+            scrollPos >= section.offsetTop &&
+            scrollPos < section.offsetTop + section.offsetHeight
+          ) {
+            navItems.forEach((link) => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === '#' + section.id) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+
+        // Show/hide back to top button
+        const backToTopBtn = document.getElementById('backToTop');
+        if (window.scrollY > 300) {
+          backToTopBtn.style.display = 'block';
+        } else {
+          backToTopBtn.style.display = 'none';
+        }
+      }
+
+      window.addEventListener('scroll', onScroll);
+
+      // Scroll reveal effect for sections
+      function revealSections() {
+        const triggerBottom = window.innerHeight * 0.85;
+        sections.forEach((section) => {
+          const sectionTop = section.getBoundingClientRect().top;
+          if (sectionTop < triggerBottom) {
+            section.classList.add('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', revealSections);
+      window.addEventListener('load', revealSections);
+
+      // Back to top button scroll
+      const backToTopBtn = document.getElementById('backToTop');
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Typed text animation in About section
+      const typedTextEl = document.querySelector('.typed-text');
+      const phrases = [
+        'Programmer',
+        'AI Enthusiast',
+        'Machine Learning Developer',
+        'Open Source Contributor',
+      ];
+      let currentPhraseIndex = 0;
+      let currentCharIndex = 0;
+      let isDeleting = false;
+      const typingSpeed = 100;
+      const deletingSpeed = 60;
+      const delayBetweenPhrases = 1500;
+
+      function type() {
+        const currentPhrase = phrases[currentPhraseIndex];
+        if (!isDeleting) {
+          typedTextEl.textContent = currentPhrase.slice(0, currentCharIndex + 1);
+          currentCharIndex++;
+          if (currentCharIndex === currentPhrase.length) {
+            isDeleting = true;
+            setTimeout(type, delayBetweenPhrases);
+            return;
+          }
+        } else {
+          typedTextEl.textContent = currentPhrase.slice(0, currentCharIndex - 1);
+          currentCharIndex--;
+          if (currentCharIndex === 0) {
+            isDeleting = false;
+            currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+          }
+        }
+        setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
+      }
+
+      document.addEventListener('DOMContentLoaded', type);
+    </script>
+    <script>
+    // Dark mode toggle
+    const toggle = document.getElementById("darkModeToggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+    });
+
+    // Responsive menu toggle
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+      const expanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", !expanded);
+    });
+
+    // Back to top button
+    const backToTopBtn = document.createElement("button");
+    backToTopBtn.id = "backToTop";
+    backToTopBtn.innerHTML = "↑";
+    document.body.appendChild(backToTopBtn);
+
+    window.addEventListener("scroll", () => {
+      backToTopBtn.style.display = window.scrollY > 400 ? "block" : "none";
+
+      // Reveal sections on scroll
+      document.querySelectorAll("section").forEach((sec) => {
+        const top = sec.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100) {
+          sec.classList.add("active");
+        }
+      });
+    });
+
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Optional: Close nav menu on link click (mobile)
+    document.querySelectorAll(".nav-link").forEach((link) =>
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+        menuToggle.setAttribute("aria-expanded", false);
+      })
+    );
+  </script>
+  </body>
+  </html>

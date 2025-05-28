@@ -1,0 +1,319 @@
+/* Smooth Scroll Behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 30px;
+}
+
+#home {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;   /* Center horizontally in container */
+  align-items: center;       /* Center vertically */
+  text-align: center;        /* ✅ Center text instead of justify */
+  font-size: 18px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.home-content {
+  max-width: 800px;
+}
+#home p {
+  text-align: center !important;
+}
+
+
+#home {
+  font-size: 18px; /* or adjust as needed */
+}
+.home-image {
+  width: 200px;              /* or any size you prefer */
+  height: 200px;
+  object-fit: cover;         /* ensures the image fills the circle */
+  border-radius: 50%;        /* makes it round */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+
+/* Header Section */
+/* #body-header {
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    padding-top: 1.2rem;
+} */
+
+/* Navigation Menu */
+.horizontal-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.horizontal-list li {
+    display: inline-block;
+    margin: 0 8px 8px 0;
+    font-weight: 100;
+    font-size: 0.9rem;
+}
+
+.horizontal-list li a {
+    color: black;
+    text-decoration: none;
+}
+
+.nav-menu li a {
+    transition: color 0.5s, border-bottom 0.5s;
+}
+
+.nav-menu li a:hover {
+    color: lightgrey;
+    border-bottom: 1px solid black;
+}
+
+/* Text Centering */
+.text-center {
+    text-align: center;
+}
+
+/* Name and Social Icons */
+#name-social-container {
+    margin-top: 40vh;
+}
+
+#my-name {
+    font-size: 3rem;
+    letter-spacing: 0.1rem;
+    color: black;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.social-icons li a i {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 50%;
+}
+
+.social-icons li a i:hover {
+    box-shadow: 0px 0px 6px 4px rgba(230, 196, 196, 0.3);
+}
+
+/* Section Styling */
+.content-section {
+    min-height: 100vh;
+    padding: 60px 20px;
+    background-color: #f4f4f4;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    scroll-margin-top: 100px; /* Prevent hiding under header */
+}
+
+/* Active section animation */
+.content-section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+.skills-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.skills-list li {
+  background-color: #64b5f6;  /* light blue */
+  border-radius: 20px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.skill-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.skill-name {
+  font-weight: bold;
+}
+
+.skill-percent {
+  font-weight: bold;
+}
+.skill-tab-header {
+  display: block;             /* remove flex */
+  max-width: 600px;
+  margin: 30px auto 10px auto;
+  padding: 0 20px;
+  color: #333;
+  font-weight: 700;
+  font-size: 1.5rem;
+  user-select: none;
+  text-align: left;          /* left align text */
+}
+
+/* If you want the percentage text below or smaller */
+.skill-tab-percentage {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 600;
+  margin-top: 5px;           /* some spacing below heading */
+}
+.section-heading {
+  display: inline-block;
+  border-bottom: 3px solid #64b5f6; /* blue underline */
+  padding-bottom: 5px;
+  font-size: 2rem;
+  color: white; /* or adjust as per your theme */
+}
+.project-flex {
+  display: flex;
+  align-items: center; /* vertically centers image and text */
+  gap: 20px; /* space between image and text */
+}
+
+.project-image {
+  width: 450px; /* adjust to desired size */
+  height: auto;
+  object-fit: contain;
+}
+
+.project-info {
+  flex: 1; /* allows text section to take up remaining space */
+}
+
+.horizontal-list li a,
+.social-icons li a i {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.horizontal-list li a:hover {
+  transform: scale(1.05);
+}
+
+.education-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.education-card {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.education-card:hover {
+  transform: scale(1.01);
+}
+
+.edu-img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-right: 20px;
+}
+
+.edu-details h3 {
+  margin: 0 0 5px;
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+.edu-details p {
+  margin: 4px 0;
+  color: #34495e;
+}
+
+@media (max-width: 768px) {
+  .education-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .edu-img {
+    margin: 0 0 15px;
+  }
+}
+
+.skill-tab-percentage {
+  font-size: 1.2rem;
+  color: #666;
+  font-weight: 600;
+}
+
+#skills .section-heading {
+  text-align: left;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #1e88e5;  /* darker blue for track */
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #ff5722;  /* orange fill */
+  border-radius: 4px;
+  transition: width 0.6s ease-in-out;
+}
+
+
+.about-container {
+  display: flex;
+  align-items: center;  /* vertically center */
+  gap: 2rem;            /* space between image and text */
+  flex-wrap: wrap;      /* wrap on small screens */
+}
+
+.profile-photo {
+  width: 350px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;       /* prevents image from shrinking */
+}
+
+.about-text {
+  flex: 1;
+  min-width: 280px;     /* prevent text from getting too narrow */
+  font-size: 16px;
+  text-align: justify;
+}
+
+p {
+  text-align: justify;
+  margin-bottom: 1em; /* keeps that one line gap */
+}
